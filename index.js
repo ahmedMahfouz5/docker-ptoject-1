@@ -6,7 +6,7 @@ app.get("/", async (req, res) => {
   const date = dateTime.getDate();
   const month = dateTime.getMonth() + 1;
   const year = dateTime.getFullYear();
-  const hour = dateTime.getHours() + 2;
+  const hour = dateTime.getHours() + 33;
   const minutes = dateTime.getMinutes();
   const seconds = dateTime.getSeconds();
   res.json({

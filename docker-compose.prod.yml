@@ -1,11 +1,5 @@
 version: "2.31.0"
 services:
   node-app:
-    container_name: api
-    build: .
     environment:
       - NODE_ENV=production
-    ports:
-      - 3000:3000
-    env_file:
-      - ./.env
