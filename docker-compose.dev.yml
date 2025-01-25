@@ -1,7 +1,12 @@
 version: "2.31.0"
 services:
   node-app:
+    build:
+      context: .
+      args:
+        - NODE_ENV=development
     environment:
       - NODE_ENV=development
     volumes:
       - ./:/app:ro
+    command: npm run start-dev
