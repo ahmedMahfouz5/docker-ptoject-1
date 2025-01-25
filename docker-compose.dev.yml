@@ -1,4 +1,3 @@
-version: "2.31.0"
 services:
   node-app:
     build:
