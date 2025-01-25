@@ -1,0 +1,11 @@
+version: "2.31.0"
+services:
+  node-app:
+    container_name: api
+    build: .
+    volumes:
+      - .:app/ro
+    ports:
+      - 3000:3000
+    env_file:
+      - ./.env
