@@ -2,3 +2,4 @@
 Dockerfile
 .env
 .gitignore
+docker-compose*
