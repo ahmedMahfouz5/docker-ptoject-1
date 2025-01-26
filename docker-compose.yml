@@ -32,6 +32,9 @@ services:
     image: redis
   nginx:
     image: nginx:stable-alpine
+    volumes: -./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - node-app
     ports:
       - "8080:80"
 volumes:
