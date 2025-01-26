@@ -30,5 +30,9 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
   redis:
     image: redis
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "8080:80"
 volumes:
   mongo-db:
