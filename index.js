@@ -1,7 +1,20 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const redis = require("redis");
 const port = process.env.PORT || 3000;
+
+// connect to redis
+async function connectToRedis() {
+  const REDIS_HOST = "REDIS";
+  const REDIS_PORT = 6379;
+  const redisClient = await redis.createClient({
+    url: `redis://${REDIS_HOST}:${REDIS_PORT}`,
+  });
+  redisClient.on("error", (err) => console.log("Redis Client Error", err));
+  redisClient.on("connect", () => console.log("Connected to redis..."));
+  redisClient.connect();
+}
 
 app.get("/", async (req, res) => {
   const dateTime = new Date();
@@ -21,7 +34,7 @@ app.get("/", async (req, res) => {
     seconds,
   });
 });
-function connect_DB() {
+async function connect_DB() {
   const DB_USER = "root";
   const DB_PASSWORD = "example";
   const DB_PORT = "27017";
@@ -36,7 +49,8 @@ function connect_DB() {
       console.log(err);
     });
 }
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(port);
-  connect_DB();
+  await connect_DB();
+  await connectToRedis();
 });
