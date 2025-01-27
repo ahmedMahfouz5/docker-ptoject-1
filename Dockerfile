@@ -12,7 +12,7 @@ CMD [ "npm","run","start-dev" ]
 FROM base as production
 WORKDIR /app
 COPY package*.json ./
-RUN npm install --only=production
+RUN npm install --omit=prod
 COPY . .
 EXPOSE 3000
 CMD [ "npm","start" ]
