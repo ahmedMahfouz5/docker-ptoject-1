@@ -31,10 +31,15 @@ services:
   postgres:
     image: postgres
     restart: always
-    volume:
-      - postgres-db: /var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: example
+    ports:
+      - "5432:5432" # Map port 5432 on the host to 5432 in the container
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+      - type: tmpfs
+        target: /path/to/tmpfs
+    POSTGRES_PASSWORD: example
+    POSTGRES_USER: root
+    POSTGRES_DB: mydb # Include this to create the database on startup
 
   redis:
     image: redis

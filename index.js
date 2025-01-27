@@ -20,19 +20,19 @@ async function connect_postgres() {
   const pg = require("pg");
   const postgres_PASSWORD = "example";
   const postgres_USER = "root";
-  const postgres_PORT = "3211";
+  const postgres_PORT = "5432";
   const postgres_HOST = "postgres";
   try {
     const { Pool, Client } = pg;
-    const connectionString = `postgresql://${postgres_USER}:${postgres_PASSWORD}@${postgres_HOST}:/mydb`;
+    const connectionString = `postgresql://${postgres_USER}:${postgres_PASSWORD}@${postgres_HOST}:${postgres_PORT}/mydb`;
 
     const client = new Client({
       connectionString,
     });
     await client.connect();
-    console.log("connected to postgres");
+    await client.end(); // Close connection when done
   } catch (err) {
-    console.log("fail to connect to postgres");
+    console.error("Failed to connect to PostgreSQL:", err.message);
   }
 }
 app.get("/", async (req, res) => {
