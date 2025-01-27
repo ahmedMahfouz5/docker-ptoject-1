@@ -15,7 +15,26 @@ async function connectToRedis() {
   redisClient.on("connect", () => console.log("Connected to redis..."));
   redisClient.connect();
 }
+// connect to postgres
+async function connect_postgres() {
+  const pg = require("pg");
+  const postgres_PASSWORD = "example";
+  const postgres_USER = "root";
+  const postgres_PORT = "3211";
+  const postgres_HOST = "postgres";
+  try {
+    const { Pool, Client } = pg;
+    const connectionString = `postgresql://${postgres_USER}:${postgres_PASSWORD}@${postgres_HOST}:/mydb`;
 
+    const client = new Client({
+      connectionString,
+    });
+    await client.connect();
+    console.log("connected to postgres");
+  } catch (err) {
+    console.log("fail to connect to postgres");
+  }
+}
 app.get("/", async (req, res) => {
   const dateTime = new Date();
   const date = dateTime.getDate();
@@ -51,6 +70,7 @@ async function connect_DB() {
 }
 app.listen(port, async () => {
   console.log(port);
-  await connect_DB();
+  // await connect_DB();
+  await connect_postgres();
   await connectToRedis();
 });
