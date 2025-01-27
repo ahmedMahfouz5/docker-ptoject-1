@@ -30,6 +30,7 @@ async function connect_postgres() {
       connectionString,
     });
     await client.connect();
+    console.log("connected to postgres DB ...");
     await client.end(); // Close connection when done
   } catch (err) {
     console.error("Failed to connect to PostgreSQL:", err.message);
