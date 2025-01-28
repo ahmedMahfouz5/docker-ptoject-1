@@ -3,7 +3,7 @@ const app = express();
 // to log hostname
 function log_hostname() {
   const os = require("os");
-  console.log("response from: ", os.hostname);
+  console.log("response from: ", os.hostname());
 }
 // connect to redis
 async function connect_redis() {
