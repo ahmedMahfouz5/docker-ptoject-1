@@ -1,11 +1,9 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
-const redis = require("redis");
-const port = process.env.PORT || 3000;
 
 // connect to redis
-async function connectToRedis() {
+async function connect_redis() {
+  const redis = require("redis");
   const REDIS_HOST = "REDIS";
   const REDIS_PORT = 6379;
   const redisClient = await redis.createClient({
@@ -54,7 +52,8 @@ app.get("/", async (req, res) => {
     seconds,
   });
 });
-async function connect_DB() {
+async function connect_mongo() {
+  const mongoose = require("mongoose");
   const DB_USER = "root";
   const DB_PASSWORD = "example";
   const DB_PORT = "27017";
@@ -69,9 +68,10 @@ async function connect_DB() {
       console.log(err);
     });
 }
+const port = process.env.PORT || 3000;
 app.listen(port, async () => {
   console.log(port);
-  // await connect_DB();
+  // await connect_mongo();
   await connect_postgres();
-  await connectToRedis();
+  await connect_redis();
 });
