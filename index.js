@@ -1,6 +1,10 @@
 const express = require("express");
 const app = express();
-
+// to log hostname
+function log_hostname() {
+  const os = require("os");
+  console.log("response from: ", os.hostname);
+}
 // connect to redis
 async function connect_redis() {
   const redis = require("redis");
@@ -42,6 +46,7 @@ app.get("/", async (req, res) => {
   const hour = dateTime.getHours() + 2;
   const minutes = dateTime.getMinutes();
   const seconds = dateTime.getSeconds();
+  log_hostname();
   res.json({
     environment: process.env.NODE_ENV,
     year,
