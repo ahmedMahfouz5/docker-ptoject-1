@@ -1,6 +1,7 @@
 version: "3.7"
 services:
   node-app:
+    image: ahmedmahfouz0/first
     build: .
     depends_on:
       - postgres
